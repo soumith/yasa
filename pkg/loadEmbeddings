@@ -1,0 +1,29 @@
+dofile('tokenizer.lua')
+function loadEmbeddings(fileName,dictsize)
+   
+   etokens = {};
+i=1
+   for temp in io.lines(fileName) do
+      etokens[i] = tokenizer(temp)
+      i = i + 1
+   end
+   i = i - 1
+print("numlines:"..i)
+weights = torch.Tensor(dictsize,50)
+for j = 1, i do
+      input_j = {}
+      k = 1
+      for type,value in etokens[j] do
+         input_j[k] = value
+         k = k + 1
+      end
+      input_jt = torch.Tensor(50)
+      for k=1,50 do input_jt[k] = input_j[k] end
+      weights[j] = input_jt
+   end
+   
+   
+return weights;
+--m1 = nn.LookupTable(dictsize,50)
+--m1.weight[dictsize]
+end
