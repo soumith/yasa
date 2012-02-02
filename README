@@ -1,0 +1,1 @@
+A work in progress generic sentiment analyzer based on convolution networks. It really performs well when there's an unsupervised initialization.
